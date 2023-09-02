@@ -1,0 +1,133 @@
+/* body {
+    background-color: beige;
+}
+
+.adminNavbar {
+    background-color: #F7878F;
+}
+
+.adminNavbar > .col-md-3{
+    background-color: #D7ADD9;
+    width: 20%;
+    margin: 10px;
+    border-radius: 40%;
+} */
+
+/* .adminPage{
+    background-color: #BBF5F3;
+    border-radius: 2%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1% 0.5%;
+}
+
+.label{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    width: 300px;
+}
+
+.col-md-6{
+    margin: 30px;
+    background-color: #BBF5F3;
+    width: 300px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin: 30%;
+}
+
+.input{
+    width: 35%;
+} */
+
+.adminPage {
+	background-color: #bbf5f3;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	padding: 50px;
+	margin-top: 20px;
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+	align-items: flex-end;
+	margin-right: 20px;
+}
+
+.col-md-6 {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	width: 300px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.input {
+	width: 60%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.btn-primary {
+	background-color: #ffc107;
+	border: none;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 100px;
+	align-self: center;
+}
+
+.btn-primary:hover {
+	background-color: #e0a800;
+}
+
+.col-md-3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.imageDisplay{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#imageBlock {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px auto;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+#image {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: auto;
+}
