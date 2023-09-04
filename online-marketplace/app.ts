@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 	const logTime = new Date()
 	if(!req.session.counter) {
 		req.session.counter = 1
-		console.log('cookies first time:', req.session.id, ', welcome for first time!', '(', logTime, ')')
+		console.log('cookies first time:', req.session.id, ', welcome for first time!', '(', logTime.toLocaleDateString(), logTime.toLocaleTimeString(), ')')
 	} else {
 		console.log('cookies first time:', req.session.id, 'cookies not first time!')
 	}
