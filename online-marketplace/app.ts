@@ -34,16 +34,19 @@ declare module 'express-session' {
 	}
 }
 
+const visitors = {};
 app.use((req, res, next) => {
-	const logTime = new Date()
-	if(!req.session.counter) {
-		req.session.counter = 1
-		console.log('cookies first time:', req.session.id, ', welcome for first time!', '(', logTime.toLocaleDateString(), logTime.toLocaleTimeString(), ')')
-	} else {
-		console.log('cookies first time:', req.session.id, 'cookies not first time!')
-	}
-	next()
-})
+  const logTime = new Date();
+  if (!req.session.counter) {
+    req.session.counter = 1;
+    if (!visitors[req.session.id]) {
+		visitors[req.session.id] = true;
+    }
+    console.log(`Total visitors: ${Object.keys(visitors).length}`);
+    console.log('Cookies first time:', req.session.id, ', welcome for first time!', '(', logTime.toLocaleDateString(), logTime.toLocaleTimeString(), ')');
+  }
+  next();
+});
 
 app.use('/login', loginRoutes)
 app.use('/product', productRoutes)
