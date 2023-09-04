@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 		req.session.counter = 1
 		console.log('cookies first time:', req.session.id, ', welcome for first time!', '(', logTime, ')')
 	} else {
-		console.log('cookies not first time!')
+		console.log('cookies first time:', req.session.id, 'cookies not first time!')
 	}
 	next()
 })
@@ -92,7 +92,7 @@ app.get('/checkLogin', async (req: Request, res: Response) => {
 app.get('/logout', async (req, res) => {
 	if (req.session) {
 		// res.clearCookie('isLoggedIn')
-		console.log(req.session)
+		// console.log(req.session)
 		delete req.session['user']
 	}
 	res.redirect('/')
