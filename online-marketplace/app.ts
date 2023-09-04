@@ -29,9 +29,21 @@ app.use(
 
 declare module 'express-session' {
 	interface SessionData {
-		user?: string
+		user?: string,
+		counter?: number
 	}
 }
+
+app.use((req, res, next) => {
+	const logTime = new Date()
+	if(!req.session.counter) {
+		req.session.counter = 1
+		console.log('cookies first time:', req.session.id, ', welcome for first time!', '(', logTime, ')')
+	} else {
+		console.log('cookies not first time!')
+	}
+	next()
+})
 
 app.use('/login', loginRoutes)
 app.use('/product', productRoutes)
@@ -95,7 +107,7 @@ app.use((req, res) => {
 	res.sendFile(path.resolve('./public/404.html'))
 })
 
-const PORT = 8080
+const PORT = 80
 app.listen(PORT, () => {
 	console.log(`Listening on Port ${PORT}`)
 })

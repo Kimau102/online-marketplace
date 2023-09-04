@@ -36,10 +36,6 @@ async function loadProduct() {
 			let id = Number(element.id.replace('products', ''))
 			// console.log("element id:", id);
 			// console.log("products", products)
-
-			// 	item.innerHTML = `
-			//     <div><a href="./index.html">返回上一頁</a></div>
-			// `
 			for (let i = 0; i < products.length; i++) {
 				if (products[i].id === id) {
 					console.log('DB products index === id', i, id)
@@ -68,7 +64,6 @@ async function loadProduct() {
 			<div><a href="./index.html">返回上一頁</a> | <a href="${cart}">前往購物車結算</a></div>
         	`
 			addCartDIV()
-			// addCart();
 		})
 	})
 }
