@@ -51,7 +51,7 @@ document
 			telephone: telephone,
 			address: address
 		}
-		console.log(registrationObj)
+		// console.log(registrationObj)
 		const res = await fetch('/login/registration', {
 			method: 'POST',
 			headers: {
@@ -64,9 +64,12 @@ document
 			document.querySelector('#username').value = ''
 			document.querySelector('#email').value = ''
 			document.querySelector('#password').value = ''
+			document.querySelector('#confirmPassword').value = ''
 			document.querySelector('#telephone').value = ''
 			document.querySelector('#address').value = ''
-		} else {
+		}else if(res.status === 406) {
+			console.log((await res.json()).msg)
+		}else {
 			console.log('Registration failure')
 		}
 	})
