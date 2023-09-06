@@ -35,7 +35,8 @@ async function loginAC(req: Request, res: Response) {
 			})
 			console.log(
 				'login success and updated session user as:',
-				req.session.user
+				req.session.user,
+				'(', new Date().toLocaleDateString(), new Date().toLocaleTimeString(), ')'
 			)
 		}else {
 			res.status(401).json({ msg: 'login failure'})

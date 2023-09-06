@@ -66,13 +66,13 @@ app.get('/getProducts', async (req, res) => {
 
 app.get('/checkLogin', async (req: Request, res: Response) => {
 	if (req.session?.user) {
-		console.log('checkLogin route: req.session.user:', req.session.user)
+		console.log('checkLogin route: req.session.user:', req.session.user, '(', new Date().toLocaleDateString(), new Date().toLocaleTimeString(), ')')
 		const result = await client.query(
 			'select users.id, users.username, users.password, users.admin_auth, users.email, users.telephone, users.address from users where users.username = $1',
 			[req.session.user]
 		)
 		const user: User = result.rows[0]
-		console.log('checked login user details:', user)
+		console.log('checked login user details:', user, '(', new Date().toLocaleDateString(), new Date().toLocaleTimeString(), ')')
 
 		// 回傳 user.id 給 FRONT END
 		res.status(200)
@@ -86,7 +86,7 @@ app.get('/checkLogin', async (req: Request, res: Response) => {
 			address: user.address
 		})
 	} else {
-		console.log('checkLogin route: req.session.user not found!')
+		console.log('checkLogin route: req.session.user not found!', '(', new Date().toLocaleDateString(), new Date().toLocaleTimeString(), ')')
 		res.status(203).json({ msg: 'checkLogin: Please login account' })
 		//試野
 	}
