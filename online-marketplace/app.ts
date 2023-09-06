@@ -36,21 +36,25 @@ declare module 'express-session' {
 }
 
 app.use(async (req, res, next) => {
-	  const logDate = new Date().toLocaleDateString();
-	  const logTime = new Date().toLocaleTimeString();
-	  if (!req.session.session_id) {
-		req.session.session_id = req.session.id;
-		const userDetails =  await req.headers
-		const visitors = await jsonfile.readFile(path.join(__dirname,"visitor.json"));
-		visitors.push({
-			dateAndTime: `${logDate} at ${logTime}`,
-			session_id: req.session.session_id,
-			session_details: userDetails
-		})
-		await jsonfile.writeFile(path.join(__dirname,"visitor.json"), visitors, {spaces: 4});
-		console.log(`Welcome the ${visitors.length}th guests on ${logDate} at ${logTime}.`)
-	  }
-	  next();
+	try{
+		const logDate = new Date().toLocaleDateString();
+		const logTime = new Date().toLocaleTimeString();
+		if (!req.session.session_id) {
+		  req.session.session_id = req.session.id;
+		  const userDetails =  await req.headers
+		  const visitors = await jsonfile.readFile(path.join(__dirname,"visitor.json"));
+		  visitors.push({
+			  dateAndTime: `${logDate} at ${logTime}`,
+			  session_id: req.session.session_id,
+			  session_details: userDetails
+		  })
+		  await jsonfile.writeFile(path.join(__dirname,"visitor.json"), visitors, {spaces: 4});
+		  console.log(`Welcome the ${visitors.length}th guests on ${logDate} at ${logTime}.`)
+		}
+		next();
+	} catch(e) {
+		console.log(e)
+	}
 	});
 
 // const visitors = {};
