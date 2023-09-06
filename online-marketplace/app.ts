@@ -13,6 +13,7 @@ import { client } from './util'
 import { checkOutRoutes } from './routes/checkout'
 import { createProductRoutes } from './routes/create_product'
 import { deleteProductRoutes } from './routes/delete_product'
+import jsonfile from "jsonfile";
 client.connect() // "dial-in" to the postgres server
 
 const app = express()
@@ -30,23 +31,43 @@ app.use(
 declare module 'express-session' {
 	interface SessionData {
 		user?: string,
-		counter?: number
+		session_id?: string
 	}
 }
 
-const visitors = {};
-app.use((req, res, next) => {
-  const logTime = new Date();
-  if (!req.session.counter) {
-    req.session.counter = 1;
-    if (!visitors[req.session.id]) {
-		visitors[req.session.id] = true;
-    }
-    console.log(`Total visitors: ${Object.keys(visitors).length}`);
-    console.log('Cookies first time:', req.session.id, ', welcome for first time!', '(', logTime.toLocaleDateString(), logTime.toLocaleTimeString(), ')');
-  }
-  next();
-});
+app.use(async (req, res, next) => {
+	  const logDate = new Date().toLocaleDateString();
+	  const logTime = new Date().toLocaleTimeString();
+	  if (!req.session.session_id) {
+		req.session.session_id = req.session.id;
+		const userDetails =  await req.headers
+		const visitors = await jsonfile.readFile(path.join(__dirname,"visitor.json"));
+		visitors.push({
+			dateAndTime: `${logDate} at ${logTime}`,
+			session_id: req.session.session_id,
+			session_details: userDetails
+		})
+		await jsonfile.writeFile(path.join(__dirname,"visitor.json"), visitors, {spaces: 4});
+		console.log(`Welcome the ${visitors.length}th guests on ${logDate} at ${logTime}.`)
+	  }
+	  next();
+	});
+
+// const visitors = {};
+// app.use(async (req, res, next) => {
+//   const logTime = new Date();
+//   if (!req.session.session_id) {
+//     req.session.session_id = req.session.id;
+// 	console.log('session_id: ', req.session.session_id)
+//     if (!visitors[req.session.id]) {
+// 		visitors[req.session.session_id] = true;
+// 		await jsonfile.writeFile(path.join(__dirname,"visitor.json"), visitors ,{spaces: 4});
+//     }
+//     console.log(`Total visitors: ${Object.keys(visitors).length}`);
+//     console.log('Cookies first time:', req.session.id, ', welcome for first time!', '(', logTime.toLocaleDateString(), logTime.toLocaleTimeString(), ')');
+//   }
+//   next();
+// });
 
 app.use('/login', loginRoutes)
 app.use('/product', productRoutes)
